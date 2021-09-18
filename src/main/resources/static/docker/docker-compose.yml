@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  company-database:
+    image: mysql:latest
+    expose:
+      - 3306
+    volumes:
+      - ./database-init:/docker-entrypoint-initdb.d
+      - company-database-data:/var/lib/mysql
+    env_file:
+      - ./.database-env
+    networks: 
+      - company-network
+  company-service:
+    image: miniats/company-service:latest
+    ports: 
+      - 8080:8080
+    volumes:
+      - /tmp:/home/company-service/logs
+    env_file:
+      - ./.company-env
+      - ./.discovery-env
+    depends_on:
+      - company-database
+    networks: 
+      - company-network
+      - global-network
+volumes:
+  company-database-data:
+networks:
+  company-network:
+  global-network:
+    external:
+      name: mini-ats-network

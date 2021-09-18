@@ -1,0 +1,27 @@
+logging:
+  file:
+    name: /home/company-service/logs/CompanyService.log
+  level:
+    root: WARN
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${DISCOVERY_SERVICE_URL}
+
+spring:
+  application:
+    name: company
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${COMPANY_DATABASE_HOSTNAME}:3306/${COMPANY_DATABASE_NAME}
+    username: ${COMPANY_DATABASE_USER}
+    password: ${COMPANY_DATABASE_PASSWORD}
+    hikari:
+      initialization-fail-timeout: -1
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
