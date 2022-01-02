@@ -1,8 +1,11 @@
+server:
+  port: 8080
+
 logging:
   file:
     name: /home/company-service/logs/CompanyService.log
   level:
-    root: WARN
+    root: INFO
 
 eureka:
   instance:

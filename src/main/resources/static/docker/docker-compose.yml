@@ -10,11 +10,11 @@ services:
     env_file:
       - ./.database-env
     networks: 
-      - company-network
+      - ats-network
   company-service:
     image: miniats/company-service:latest
-    ports: 
-      - 8080:8080
+    expose: 
+      - 8080
     volumes:
       - /tmp:/home/company-service/logs
     env_file:
@@ -23,12 +23,10 @@ services:
     depends_on:
       - company-database
     networks: 
-      - company-network
-      - global-network
+      - ats-network
 volumes:
   company-database-data:
 networks:
-  company-network:
-  global-network:
+  ats-network:
     external:
       name: mini-ats-network
